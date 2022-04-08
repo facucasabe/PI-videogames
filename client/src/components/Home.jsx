@@ -1,11 +1,12 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from 'react-redux'
-import { getVideogames, filterCreated, filterByName, getGenres, filterByGenre, filterByRating } from "../actions/actions.js"
+import { getVideogames, filterCreated, filterByName, getGenres, filterByGenre, filterByRating, loader } from "../actions/actions.js"
 import { Link } from "react-router-dom"
 import Card from "../components/Card.jsx"
 import Paged from "../components/Paged.jsx"
 import SearchBar from "./SearchBar.jsx"
+import Loading from "./Loading.jsx"
 
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
     const dispatch = useDispatch() // para usar la constante que pasamos en acciones
     const allGames = useSelector((state) => state.videogames)
     const genres = useSelector((state) => state.genres)
+    const loading = useSelector((state) => state.loading)
     const [currentPage, setCurrentPage] = useState(1) // mi pagina actual que va a arrancar en 1
     const [gamesPerPage, setGamesPerPage] = useState(15) // mis personajes por pagina, que son 15
     const indexOfLastGame = currentPage * gamesPerPage // va a ser 15, indice del ultimo juego por pagina
@@ -27,12 +29,13 @@ export default function Home() {
     }
 
     useEffect(() => {
-        dispatch(getVideogames())  // este dispatch reemplaza el mapdispatchtoprops
+        dispatch(getVideogames()) // este dispatch reemplaza el mapdispatchtoprops
+        dispatch(getGenres())
     }, [dispatch])
 
-    useEffect(() => {
-        dispatch(getGenres())
-    }, [])
+    // useEffect(() => {
+    //     dispatch(getGenres())
+    // }, [])
 
     function handleClick(event) { // useEffect cuando se recaarga la pagina, recarga los estados de redux
         event.preventDefault(); // por eso el preventDefault hace que cuando se recargue se carguen todos los juegos
@@ -66,6 +69,9 @@ export default function Home() {
 
     return (
         <div>
+            {
+                loading && <Loading />
+            }
 
             <br />
             <Link to='/videogame'>Create New Game</Link>
@@ -103,9 +109,10 @@ export default function Home() {
                     allGames={allGames.length}
                     paged={paged}
                 />
+                <br />
                 {currentGames &&
                     currentGames.map(e => {
-                        // if (e.name && e.genres && e.image) {
+
                         return <Card name={e.name} genres={e.genres.map(n => n.name)} image={e.image} key={e.id} ratings={e.ratings} id={e.id} />
                     })
                 }

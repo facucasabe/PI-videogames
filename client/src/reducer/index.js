@@ -2,7 +2,8 @@ const initialState = {
     videogames: [],
     allVideogames: [],
     genres: [],
-    details: []
+    details: [],
+    loading: false
 }
 
 function reducer (state=initialState, action) {
@@ -29,22 +30,46 @@ function reducer (state=initialState, action) {
         }
     case 'FILTER_BY_RATING':
         
-        let rating = action.payload === 'asc' ? state.videogames.sort(function (a,b) {
-            if (a.ratings > b.ratings) {
+        let rating = action.payload === 'desc' ? state.videogames.sort(function (a,b) {
+            if (a.ratings === 'exceptional') {
                 return 1
             }
-            if (b.ratings > a.ratings) {
+            if (b.ratings === 'exceptional') {
                 return -1
             }
-            return 0 
+            if (a.ratings === 'recommended' && b.ratings === 'meh') {
+                return 1
+            }
+            if (b.ratings === 'recommended' && a.ratings === 'meh') {
+                return -1
+            }
+            if (a.ratings === 'skip') {
+                return 1
+            }
+            if (b.ratings === 'skip') {
+                return -1
+            }
+            if (a.ratings === b.ratings) {return 0}            
             }) : state.videogames.sort(function (a,b) {
-            if (a.ratings > b.ratings) {
-                return -1
-            }
-            if (b.ratings > a.ratings){
-                return 1
-            }
-            return 0
+                if (a.ratings === 'exceptional') {
+                    return -1
+                }
+                if (b.ratings === 'exceptional') {
+                    return 1
+                }
+                if (a.ratings === 'recommended' && b.ratings === 'meh') {
+                    return 1
+                }
+                if (b.ratings === 'recommended' && a.ratings === 'meh') {
+                    return -1
+                }
+                if (a.ratings === 'skip') {
+                    return -1
+                }
+                if (b.ratings === 'skip') {
+                    return 1
+                }
+                if (a.ratings === b.ratings) {return 0}
         })
         return {
             ...state,
@@ -101,6 +126,11 @@ function reducer (state=initialState, action) {
         return {
             ...state,
             details: []
+        }
+    case 'LOADER':
+        return {
+            ...state,
+            loading: !state.loading
         }
     default:
         return state

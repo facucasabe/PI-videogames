@@ -1,0 +1,71 @@
+.button {
+    background-color: aliceblue;
+    padding: 12px 28px;
+    text-align: center;
+    border-color: grey;
+    display: inline-block;
+    border-radius: 15px;
+    transition: 0.4s;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: monospace;
+    bottom: -50px;
+    position: relative;
+}
+
+.button:hover {
+    background-color: black;
+    color: aliceblue;
+    font-style: oblique;
+    font-size: 30px;
+}
+
+.landingimg {
+
+    position: relative;
+    bottom: -80px;
+    display: flexbox;
+    /* -ms-flex-align: center; */
+    width: 250px;
+    height: 300px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.landing {
+    animation-name: fadeIn;
+    animation-duration: 4000ms;
+
+}
+
+.logo {
+    animation-name: wave;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    margin-top: 1em;
+    position: relative;
+    bottom: -30px;
+    text-shadow: 0 0 5px #d73939, 0 0 7px #0000FF;
+    color: #61dafb;
+    font-size: 400%;
+}
+
+@keyframes wave {
+    from {
+        font-size: 400%
+    }
+
+    to {
+        font-size: 450%;
+    }
+}

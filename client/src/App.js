@@ -4,6 +4,10 @@ import LandingPage from "./components/LandingPage.jsx"
 import Home from "./components/Home.jsx"
 import { GameCreate } from './components/GameCreate';
 import Detail from './components/Detail.jsx'
+import './style/landing.css'
+import './style/paged.css'
+import './style/card.css'
+import './style/loader.css'
 
 function App() {
   return (

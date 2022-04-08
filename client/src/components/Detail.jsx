@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { clear, getDetails } from '../actions/actions'
 import { useEffect } from 'react'
 import { useParams } from 'react-router'
+import Loading from './Loading.jsx'
 
 export default function Details() {
 
@@ -16,9 +17,11 @@ export default function Details() {
     }, [dispatch])
 
     const myGame = useSelector(state => state.details)
+    const loading = useSelector(state => state.loading)
     try {
         return (
-            <div>
+            <div style={{ overflow: "hidden" }}>
+                {loading && <Loading />}
                 {
                     // myGame.length > 0 ?
                     <div>

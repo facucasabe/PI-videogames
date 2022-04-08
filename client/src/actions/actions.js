@@ -2,10 +2,12 @@ import axios from "axios"
 
 export function getVideogames() {
     return async function(dispatch) {
+        dispatch(loader())
         var json = await axios.get("http://localhost:3001/videogames",{})
+        dispatch(loader())
         return dispatch({
                 type: 'GET_GAMES',
-                payload: json.data
+                payload: json.data 
             })
     }
 }
@@ -70,7 +72,9 @@ export function postVideogames(payload) {
 export function getDetails (id) {
     return async function (dispatch) {
         try {
+            dispatch(loader())
             var json = await axios.get(`http://localhost:3001/videogame/${id}`)
+            dispatch(loader())
             return dispatch({
                 type: 'GET_DETAILS',
                 payload: json.data
@@ -83,6 +87,12 @@ export function getDetails (id) {
 export function clear () {
     return {
         type: "CLEAR"
+    }
+}
+
+export function loader (){
+    return {
+        type: 'LOADER'
     }
 }
 
