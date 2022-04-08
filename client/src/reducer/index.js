@@ -92,10 +92,15 @@ function reducer (state=initialState, action) {
             ...state,
             videogames: filtered
         }
-    case 'GET_DETAILS':
+    case 'GET_DETAILS':        
         return {
             ...state,
             details: action.payload
+        }
+    case 'CLEAR':
+        return {
+            ...state,
+            details: []
         }
     default:
         return state

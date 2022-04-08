@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getDetails } from '../actions/actions'
+import { clear, getDetails } from '../actions/actions'
 import { useEffect } from 'react'
 import { useParams } from 'react-router'
 
@@ -11,13 +11,11 @@ export default function Details() {
     const { id } = useParams()
 
     useEffect(async () => {
+        dispatch(clear())
         dispatch(getDetails(id)) // de esta forma yo accedo al id de ese detalle
     }, [dispatch])
 
     const myGame = useSelector(state => state.details)
-    console.log(myGame)
-
-
     try {
         return (
             <div>

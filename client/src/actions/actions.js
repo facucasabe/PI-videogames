@@ -80,6 +80,12 @@ export function getDetails (id) {
     }
 }
 
+export function clear () {
+    return {
+        type: "CLEAR"
+    }
+}
+
 // con fetch: es fetch() en lugar de axios.get
 
 // con fetch vas a tener que usar promesas con .then, y
