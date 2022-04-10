@@ -157,7 +157,7 @@ export function GameCreate() {
                     <label>Image:</label>
                     <input type="text" value={input.image} name="image" onChange={handleChange} />
                     <br />
-                    <img src={input.image} />
+                    <img src={input.image} alt="Not Found" />
                 </div>
                 <button type="submit">Create Videogame!</button>
             </form>

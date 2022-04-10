@@ -44,6 +44,8 @@ export function getByName (name) {
     return async function (dispatch) {
         try {
             var json = await axios.get("http://localhost:3001/videogames?name=" + name)
+            console.log(name)
+            console.log(json)
             return dispatch({
                 type: 'GET_BY_NAME',
                 payload: json.data

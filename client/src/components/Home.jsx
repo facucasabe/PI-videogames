@@ -72,6 +72,7 @@ export default function Home() {
             {
                 loading && <Loading />
             }
+
             <br />
             <br />
             <Link to='/videogame'>

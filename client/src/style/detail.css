@@ -1,0 +1,65 @@
+.detail {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgba(44, 73, 140, 0.959);
+    border-radius: 10px;
+    position: absolute;
+    left: 10%;
+    top: 10%;
+    display: grid;
+    background-image: linear-gradient(10deg, rgb(161, 110, 169), rgb(126, 126, 244));
+    grid-template-columns: 40% 0% 60%;
+    grid-template-rows: 30% 0% 80%;
+    width: 80%;
+    height: 70%;
+}
+
+.itemImg {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.detailimg {
+    position: relative;
+    top: 50px;
+    border: 5px solid black;
+    border-radius: 8px;
+    max-width: 70%;
+    height: 250px;
+
+}
+
+.itemName {
+    color: rgba(44, 73, 140, 0.959);
+    position: relative;
+    top: 20px;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.itemInfo {
+    grid-column: 3;
+    grid-row: 1;
+    position: relative;
+    right: 30px;
+    top: 15px;
+}
+
+.itemBtn {
+    grid-column: 3;
+    grid-row: 1;
+    position: relative;
+    left: 300px;
+    top: 5px
+}
+
+.buttondetail {
+    border-radius: 8px;
+}
+
+.description {
+    position: relative;
+    right: 30px;
+    top: 15px;
+    grid-column: 3;
+    grid-row: 3
+}

@@ -22,7 +22,7 @@ export default function LandingPage() {
                 <button className="button">log in</button>
             </Link>
             <br />
-            <img src="https://thumbs.gfycat.com/CheerfulAntiqueDassie-max-1mb.gif" className="landingimg" />
+            <img src="https://thumbs.gfycat.com/CheerfulAntiqueDassie-max-1mb.gif" className="landingimg" alt="Not Found" />
         </div >
 
     )

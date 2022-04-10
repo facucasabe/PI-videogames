@@ -10,6 +10,7 @@ import './style/card.css'
 import './style/loader.css'
 import './style/home.css'
 import './style/searchbar.css'
+import './style/detail.css'
 
 function App() {
   return (

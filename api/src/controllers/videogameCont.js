@@ -10,9 +10,7 @@ const getApiInfo = async () => {
             name: d.name,
             description: d.description_raw,
             date: d.released,
-            ratings: d.ratings.map(e=> {
-                return e.title
-            })[0],
+            ratings: d.ratings[0].title,
             platforms: d.parent_platforms.map(c=> c.platform.name),
             image: d.background_image,
             genres: d.genres            
@@ -33,9 +31,7 @@ const getNextInfo = async () => {
                 name: d.name,
                 description: d.description_raw,
                 date: d.released,
-                ratings: d.ratings.map(e=> {
-                    return e.title
-                })[0],
+                ratings: d.ratings[0].title,
                 platforms: d.parent_platforms.map(c=> c.platform.name),
                 image: d.background_image,
                 genres: d.genres

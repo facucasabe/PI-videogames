@@ -65,9 +65,10 @@ router.get("/videogame/:idVideogame", async (req, res) => {
                     name: dbInfo.data.name,
                     description: dbInfo.data.description_raw,
                     date: dbInfo.data.released,
-                    rating: dbInfo.data.ratings.map(e=> {
-                        return e.title
-                    })[0],
+                    rating: dbInfo.data.ratings[0].title,
+                    // rating: dbInfo.data.ratings.map(e=> {
+                    //     return e.title
+                    // })[0],
                     platforms: dbInfo.data.parent_platforms.map(c=> c.platform.name),
                     image: dbInfo.data.background_image,
                     genres: dbInfo.data.genres.map(e=> e.name)
@@ -120,7 +121,6 @@ router.post("/videogame" , async (req, res, next) => {
             {
                 where: {name: e},
             })
-            console.log(Object.values(genresDb))
             await newGame.addGenre(Object.values(genresDb))
         })
         res.status(200).send(newGame) 

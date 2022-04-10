@@ -23,10 +23,27 @@ function reducer (state=initialState, action) {
             videogames: statusFiltered
         }
     case 'FILTER_CREATED':
-        const created = action.payload === 'db' ? state.allVideogames.filter(e => e.dbCreated) : state.allVideogames.filter(e => !e.dbCreated)
-        return {
-            ...state,
-            videogames: created
+        // const created = action.payload === 'db' ? state.allVideogames.filter(e => e.dbCreated) : state.allVideogames.filter(e => !e.dbCreated)
+        if (action.payload === 'db') {
+            const created = state.allVideogames.filter(e => e.dbCreated)
+            return {
+                ...state,
+                videogames: created
+            }
+        }
+        else if (action.payload === 'api') {
+            const created = state.allVideogames.filter(e => !e.dbCreated)
+            return {
+                ...state,
+                videogames: created
+            }
+        }
+        else {
+            const created = state.allVideogames
+            return {
+                ...state,
+                videogames: created
+            }
         }
     case 'FILTER_BY_RATING':
         

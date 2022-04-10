@@ -20,26 +20,41 @@ export default function Details() {
     const loading = useSelector(state => state.loading)
     try {
         return (
-            <div style={{ overflow: "hidden" }}>
+            <div style={{ overflow: "hidden" }}  >
                 {loading && <Loading />}
-                {
+                {!loading &&
                     // myGame.length > 0 ?
-                    <div>
-                        <h1>{myGame.name}</h1>
-                        <img src={myGame.image} alt="Not Found" width="500px" heigth="700px" />
-                        <h3>Genres: {myGame.genres}</h3>
-                        <p>Description: {myGame.description}</p>
-                        <p>Release Date: {myGame.date}</p>
-                        <p>Rating: {myGame.rating}</p>
-                        <p>Platforms: {myGame.platforms + ", "}</p>
+
+                    <div className="detail">
+                        <div className='itemBtn'>
+                            <Link to="/home">
+                                <button className='buttondetail'>Back to Home</button>
+                            </Link>
+                        </div>
+                        <div className='itemName'>
+                            <h1>{myGame.name}</h1>
+                            <br />
+                            <h3>Genres: {myGame.genres + " "}</h3>
+                        </div>
+                        <div className='itemImg'>
+                            <img className='detailimg' src={myGame.image} height="300px" width="400px" />
+                        </div>
+                        <div className='description'>
+                            <label>Description: </label>
+                            <h5>{myGame.description}</h5>
+                        </div>
+                        <div className='itemInfo'>
+                            <p>Release Date: {myGame.date}</p>
+                            <p>Rating: {myGame.rating}</p>
+                            <p>Platforms: {myGame.platforms + ", "}</p>
+                        </div>
+
                     </div>
                     // : <p>Loading...</p>
 
                 }
-                <Link to="/home">
-                    <button>Back to Home</button>
-                </Link>
-            </div>
+
+            </div >
         )
     }
     catch (error) {
