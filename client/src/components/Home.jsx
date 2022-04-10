@@ -72,10 +72,12 @@ export default function Home() {
             {
                 loading && <Loading />
             }
-
             <br />
-            <Link to='/videogame'>Create New Game</Link>
-            <h1>WeLcOmE</h1>
+            <br />
+            <Link to='/videogame'>
+                <button className="buttoncreate">Create New Game</button>
+            </Link>
+            <h1 className="welcome">WeLcOmE</h1>
             <SearchBar />
             <button onClick={(e => { handleClick(e) })}>
                 Reload All Games
@@ -95,7 +97,7 @@ export default function Home() {
                     <option value="db">Created Games</option>
                 </select>
                 <br />
-                <label>Filter by Genre</label>
+                <label className="genretit">Filter by Genre</label>
                 <br />
                 <select onChange={e => handleFilterByGenre(e)}>
                     {genres.map(g => (

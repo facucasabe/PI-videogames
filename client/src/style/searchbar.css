@@ -1,0 +1,20 @@
+.searchbar {
+    border-radius: 5px;
+    width: 300px;
+    height: 20px;
+}
+
+.searchbutton {
+    background-color: rgb(68, 166, 179);
+    color: rgb(78, 35, 97);
+    /* color: rgb(204, 223, 240); */
+    font-weight: 600;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.searchbutton:hover {
+    color: rgb(68, 166, 179);
+    background-color: rgb(187, 147, 204);
+    font-weight: 500;
+
+}

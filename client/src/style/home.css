@@ -1,0 +1,11 @@
+.welcome {
+    text-shadow: 0 0 5px #d73939, 0 0 7px #0000FF;
+    color: #61dafb;
+    font-size: 300%;
+}
+
+.genretit {
+    color: #61dafb;
+    text-shadow: 0 0 5px #d73939, 0 0 7px #0000FF;
+    font-size: 150%;
+}

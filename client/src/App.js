@@ -8,6 +8,8 @@ import './style/landing.css'
 import './style/paged.css'
 import './style/card.css'
 import './style/loader.css'
+import './style/home.css'
+import './style/searchbar.css'
 
 function App() {
   return (

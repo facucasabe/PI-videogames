@@ -9,7 +9,8 @@
     color: black;
     font-size: 20px;
     font-weight: bold;
-    font-family: monospace;
+    /* font-family: monospace; */
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     bottom: -50px;
     position: relative;
 }
@@ -58,6 +59,7 @@
     text-shadow: 0 0 5px #d73939, 0 0 7px #0000FF;
     color: #61dafb;
     font-size: 400%;
+
 }
 
 @keyframes wave {
