@@ -8,8 +8,8 @@
     display: inline;
 }
 
-.paged li a {
-    color: black;
+.paged li button {
+
     float: left;
     padding: 8px 16px;
     margin-left: 5px;
@@ -17,12 +17,19 @@
     text-decoration: none;
 }
 
-.paged a {
+.paged button {
+    display: inline-flex;
+    color: black;
     border: 1px solid gray;
     background-color: lightgray;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.paged button {
+    border-radius: 8px;
+}
+
+/* 
 .paged a:first-child {
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -31,8 +38,24 @@
 .paged a:last-child {
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+} */
+
+.paged button:hover {
+    background-color: hotpink;
 }
 
-.paged a:hover {
-    background-color: hotpink;
+.prev {
+    position: inherit;
+    max-height: 22px;
+    width: 80px;
+    display: contents;
+    text-align: center;
+}
+
+.next {
+    position: -webkit-sticky;
+    display: inline;
+    max-height: 22px;
+    width: 50px;
+    text-align: center;
 }

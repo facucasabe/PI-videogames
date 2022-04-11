@@ -11,10 +11,10 @@ export default function Details() {
     const dispatch = useDispatch()
     const { id } = useParams()
 
-    useEffect(async () => {
+    useEffect(() => {
         dispatch(clear())
         dispatch(getDetails(id)) // de esta forma yo accedo al id de ese detalle
-    }, [dispatch])
+    }, [dispatch, id])
 
     const myGame = useSelector(state => state.details)
     const loading = useSelector(state => state.loading)
@@ -37,7 +37,7 @@ export default function Details() {
                             <h3>Genres: {myGame.genres + " "}</h3>
                         </div>
                         <div className='itemImg'>
-                            <img className='detailimg' src={myGame.image} height="300px" width="400px" />
+                            <img className='detailimg' src={myGame.image} height="300px" width="400px" alt="Not Found" />
                         </div>
                         <div className='description'>
                             <label>Description: </label>

@@ -66,7 +66,7 @@ function reducer (state=initialState, action) {
             if (b.ratings === 'skip') {
                 return -1
             }
-            if (a.ratings === b.ratings) {return 0}            
+            return 0
             }) : state.videogames.sort(function (a,b) {
                 if (a.ratings === 'exceptional') {
                     return -1
@@ -86,7 +86,7 @@ function reducer (state=initialState, action) {
                 if (b.ratings === 'skip') {
                     return 1
                 }
-                if (a.ratings === b.ratings) {return 0}
+                return 0
         })
         return {
             ...state,

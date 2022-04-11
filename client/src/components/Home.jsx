@@ -1,7 +1,7 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from 'react-redux'
-import { getVideogames, filterCreated, filterByName, getGenres, filterByGenre, filterByRating, loader } from "../actions/actions.js"
+import { getVideogames, filterCreated, filterByName, getGenres, filterByGenre, filterByRating } from "../actions/actions.js"
 import { Link } from "react-router-dom"
 import Card from "../components/Card.jsx"
 import Paged from "../components/Paged.jsx"
@@ -33,9 +33,6 @@ export default function Home() {
         dispatch(getGenres())
     }, [dispatch])
 
-    // useEffect(() => {
-    //     dispatch(getGenres())
-    // }, [])
 
     function handleClick(event) { // useEffect cuando se recaarga la pagina, recarga los estados de redux
         event.preventDefault(); // por eso el preventDefault hace que cuando se recargue se carguen todos los juegos
@@ -78,7 +75,7 @@ export default function Home() {
             <Link to='/videogame'>
                 <button className="buttoncreate">Create New Game</button>
             </Link>
-            <h1 className="welcome">WeLcOmE</h1>
+            <h1 className="welcome">WELCOME</h1>
             <SearchBar />
             <button onClick={(e => { handleClick(e) })}>
                 Reload All Games
@@ -108,6 +105,7 @@ export default function Home() {
                 <br />
                 <br />
                 <Paged
+                    currentPage={currentPage}
                     gamesPerPage={gamesPerPage}
                     allGames={allGames.length}
                     paged={paged}

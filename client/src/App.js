@@ -11,6 +11,8 @@ import './style/loader.css'
 import './style/home.css'
 import './style/searchbar.css'
 import './style/detail.css'
+import './style/create.css'
+
 
 function App() {
   return (

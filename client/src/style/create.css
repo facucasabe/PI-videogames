@@ -1,0 +1,99 @@
+.create {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgba(44, 73, 140, 0.959);
+    border-radius: 10px;
+    position: absolute;
+    left: 25%;
+    top: 10%;
+    display: grid;
+    background-image: linear-gradient(10deg, rgb(161, 110, 169), rgb(126, 126, 244));
+    grid-template-columns: 50% 0% 50%;
+    grid-template-rows: 50% 0% 50%;
+    width: 50%;
+    height: 70%;
+    border: 4px solid rgb(183, 74, 238);
+}
+
+.form {
+    position: relative;
+    top: 60px;
+    left: -20px;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.formDescription {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.imgCreate {
+
+    position: relative;
+    right: 50px;
+    bottom: 130px;
+    max-width: fit-content;
+    height: fit-content;
+    grid-column: 3;
+    grid-row: 3
+}
+
+.imgCreate img {
+    display: inline;
+    position: relative;
+    border-radius: 10px;
+    max-width: 100%;
+}
+
+.formtitle {
+    grid-column: 1;
+    grid-row: 1;
+    position: relative;
+    right: 20px;
+    bottom: 10px
+}
+
+.divGen {
+    border: 2px solid black;
+    background-image: linear-gradient(10deg, rgb(161, 110, 169), rgb(126, 126, 244));
+    position: absolute;
+    top: 350px;
+    right: 800px;
+    max-width: 220px;
+}
+
+.delbutton {
+    border-radius: 5px;
+    background-color: rgb(224, 131, 241);
+    color: rgb(55, 53, 53);
+    position: relative;
+    grid-column: 3;
+    grid-row: 1;
+    font-size: 13px;
+    display: block;
+    list-style-type: square;
+    width: 100px;
+    max-height: fit-content;
+}
+
+.buttonsubmit {
+    max-width: fit-content;
+    height: 15px;
+
+    position: absolute;
+    grid-column: 3;
+    grid-row: 3;
+    top: 230px;
+    right: 0px;
+}
+
+.backhome {
+    max-width: fit-content;
+    height: 15px;
+
+    position: absolute;
+    grid-column: 3;
+    grid-row: 1;
+    top: 0px;
+    right: 0px;
+}

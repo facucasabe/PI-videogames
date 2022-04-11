@@ -27,13 +27,12 @@ export function GameCreate() {
             errors.name = 'Game must have a name'
         } else if (!input.description) {
             errors.description = 'Game must have a description'
-        } else if (!input.platforms) {
-            errors.platforms = 'Game must have a platform'
         }
         return errors
     }
 
     function handleChange(e) {  // va a ir manejando cada vez que se cambien mis inputs
+        e.preventDefault()
         setInput({
             ...input,
             [e.target.name]: e.target.value
@@ -46,6 +45,7 @@ export function GameCreate() {
     }
 
     function handleCheck(e) {
+        e.preventDefault()
         if (e.target.checked) {  // es un booleano, devuelve true si está checkeado
             setInput({
                 ...input,
@@ -55,6 +55,7 @@ export function GameCreate() {
     }
 
     function handleSelect(e) {
+        e.preventDefault()
         setInput({
             ...input,
             genres: [...input.genres, e.target.value]
@@ -62,6 +63,7 @@ export function GameCreate() {
     }
 
     function handleRatings(e) {
+        e.preventDefault()
         setInput({
             ...input,
             ratings: e.target.value
@@ -70,17 +72,23 @@ export function GameCreate() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        dispatch(postVideogames(input))
-        alert("Game Created Succesfully")
-        setInput({
-            name: "",
-            description: "",
-            date: "",
-            ratings: [],
-            platforms: [],
-            image: "",
-            genres: []
-        })
+
+
+        if (input.name.length >= 1 && input.description.length >= 1) {
+            dispatch(postVideogames(input))
+
+            alert("Game Created Succesfully")
+            setInput({
+                name: "",
+                description: "",
+                date: "",
+                ratings: [],
+                platforms: [],
+                image: "",
+                genres: []
+            })
+        }
+        else { alert("Complete the missing info") }
 
     }
 
@@ -96,32 +104,35 @@ export function GameCreate() {
     }, [dispatch])
 
     return (
-        <div>
-            <Link to='/home'>
-                <button>Back to Home!</button>
+        <div className="create">
+            <br />
+            <Link to='/home' className="backhome" >
+                <button style={{ borderRadius: "5px", backgroundColor: "ActiveCaption" }}>Back to Home!</button>
             </Link>
-            <h1>Create Game!</h1>
-            <form onSubmit={e => handleSubmit(e)}>
-                <div>
-                    <label>Name:</label>
-                    <input type="text" value={input.name} name="name" onChange={e => handleChange(e)} />
+            <h1 className="formtitle">Create Game:</h1>
+            <form className="form" onSubmit={e => handleSubmit(e)}>
+
+                <div className="formName">
+                    <input style={{ width: "220px" }} placeholder="Name" type="text" value={input.name} name="name" onChange={e => handleChange(e)} />
                     {errors.name && (
-                        <p className="error">{errors.name}</p>
+                        <p>{errors.name}</p>
                     )}
                 </div>
+                <br />
                 <div>
-                    <label>Description:</label>
-                    <input type="text" value={input.description} name="description" onChange={e => handleChange(e)} />
+                    <input style={{ width: "220px" }} placeholder="Description" type="text" value={input.description} name="description" onChange={e => handleChange(e)} />
                     {errors.description && (
-                        <p className="error">{errors.description}</p>
+                        <p>{errors.description}</p>
                     )}
                 </div>
+                <br />
                 <div>
-                    <label>Date:</label>
-                    <input type="text" value={input.date} name="date" onChange={e => handleChange(e)} />
+                    <input style={{ width: "220px" }} placeholder="Release date" type="text" value={input.date} name="date" onChange={e => handleChange(e)} />
                 </div>
+                <br />
                 <div>
                     <label>Platforms:</label>
+                    <br />
                     <br />
                     <label><input type="checkbox" name="PC" value="PC" onChange={e => handleCheck(e)} />PC</label>
                     <label><input type="checkbox" name="play" value="play" onChange={e => handleCheck(e)} />PlayStation</label>
@@ -134,40 +145,58 @@ export function GameCreate() {
                     <label><input type="checkbox" name="linux" value="linux" onChange={e => handleCheck(e)} />Linux</label>
                     <label><input type="checkbox" name="nintendo" value="nintendo" onChange={e => handleCheck(e)} />Nintendo</label>
                     <label><input type="checkbox" name="xbox" value="xbox" onChange={e => handleCheck(e)} />Xbox</label>
-                    {errors.platforms && (
-                        <p className="error">{errors.platforms}</p>
-                    )}
+
                 </div>
+                <br />
                 <div>
                     <label>Ratings:</label>
-                    <select onChange={e => handleRatings(e)}>
+                    <br />
+                    <select style={{ width: "225px" }} onChange={e => handleRatings(e)} className="ratingselect">
                         <option value="exceptional" key="1">Exceptional</option>
                         <option value="recommended" key="2">Recommended</option>
                         <option value="meh" key="3">Meh</option>
                         <option value="skip" key="4">Skip</option>
                     </select>
                 </div>
-                <select onChange={e => handleSelect(e)}>
+                <br />
+                <label>Genres:</label>
+                <br />
+                <select onChange={e => handleSelect(e)} className="genreselect" style={{ width: "225px" }} >
                     {genres.map(g => (
                         <option value={g.name} key={g.id}>{g.name}</option>
                     ))}
                 </select>
-                <ul><li>{input.genres.map(e => e + ",")}</li></ul>
-                <div>
-                    <label>Image:</label>
-                    <input type="text" value={input.image} name="image" onChange={handleChange} />
-                    <br />
+
+
+                <br />
+                <br />
+
+                <input style={{ width: "220px" }} placeholder="Image URL" type="text" value={input.image} name="image" onChange={handleChange} />
+                <br />
+
+
+            </form >
+            {
+                input.genres.length > 0 &&
+                <div className="divGen">
+                    <label>Remove Genre</label>
+                    {input.genres.map(e =>
+
+                        <button className="delbutton" onClick={() => handleDelete(e)}>{e} x</button>
+                    )
+                    }
+                </div>
+            }
+            {
+                input.image &&
+                <div className="imgCreate">
                     <img src={input.image} alt="Not Found" />
                 </div>
-                <button type="submit">Create Videogame!</button>
-            </form>
-            {input.genres.map(e =>
-                <div className="divGen">
-                    <p>{e}</p>
-                    <button className="delbutton" onClick={() => handleDelete(e)}>x</button>
-                </div>)
             }
-        </div>
+            <div className="buttonsubmit">
+                <button style={{ borderRadius: "5px", backgroundColor: "ActiveCaption" }} type="submit" onClick={e => handleSubmit(e)} >Create Videogame!</button>
+            </div>
+        </div >
     )
 }
 
