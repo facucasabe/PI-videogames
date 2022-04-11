@@ -33,7 +33,7 @@ export default function Paged({ gamesPerPage, allGames, paged, currentPage }) {
                             </li>
                         )
                     })}
-                <li><button disabled={currentPage === pageNumbers.length - 1} onClick={e => handleNext(e)}>Next</button></li>
+                <li><button disabled={currentPage === pageNumbers[pageNumbers.length - 1]} onClick={e => handleNext(e)}>Next</button></li>
             </ul>
             <br />
             <br />
