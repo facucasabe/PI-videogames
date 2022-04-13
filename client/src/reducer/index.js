@@ -28,46 +28,67 @@ function reducer (state=initialState, action) {
     case 'FILTER_CREATED':
 
     if (state.filterGenre.length > 0 ) {
-        console.log("state.videogames.length: " + state.allVideogames.length)  
         state.videogames = [...state.allVideogames]
-        if (action.payload === 'db') {            
+        if (action.payload === 'db') {
 
             const filter1 = state.allVideogames.filter(e => e.dbCreated)
-            // const filtered = action.payload === 'all' ? filter1 :  filter1.filter(e => e.genres.find(e => e.name === action.payload))
+            if (state.filterGenreName === "all") {
+                
+                
+                return {
+                    ...state,
+                    videogames: filter1,
+                    filterGame: filter1
+                }
+            } else {
+                const filtered1  = filter1.filter(e => e.genres.find(p => p.name === state.filterGenreName))  
 
-            const filtered1  = filter1.filter(e => e.genres.find(p => p.name === state.filterGenreName))
-            
-            
-
-            return {
-                ...state,
-                videogames: filtered1,
-                filterGame: filtered1
+                return {
+                    ...state,
+                    videogames: filtered1,
+                    filterGame: filtered1
+                }
             }
         }
         else if (action.payload === 'api') {
-            console.log("api filter: " , state.videogames)
-            console.log("generobusca: ", state.filterGenreName)
-            const created = state.videogames.filter(e => !e.dbCreated)
-            const filtered = created.filter(e => e.genres.find(p => p.name === state.filterGenreName))
 
-            return {
-                ...state,
-                videogames: filtered,
-                filterGame: filtered
+            const api = state.videogames.filter(e => !e.dbCreated)
+            if (state.filterGenreName === "all") {
+                
+                return {
+                    ...state,
+                    videogames: api,
+                    filterGame: api
+                }
+            } else {
+                const filtered = api.filter(e => e.genres.find(p => p.name === state.filterGenreName))
+
+                return {
+                    ...state,
+                    videogames: filtered,
+                    filterGame: filtered
+                }
             }
         }
         else if (action.payload === 'all'){
+            if (state.filterGenreName === "all") {
+                return {
+                    ...state,
+                    videogames: state.allVideogames,
+                    filterGame: state.allVideogames
+                }
+            } else {
             const created = state.videogames.filter(e => e.genres.find(u => u.name === state.filterGenreName))
             return {
                 ...state,
                 videogames: created,
-                // filterGame: created,
-                filterGame: [...state.allVideogames]
+                filterGame: created,
+                
             }
-            
+        }
+        }          
         
-    }} else {
+    } else {
         console.log("state.filterGenre.length < 0")
         state.videogames = [...state.allVideogames]
         if (action.payload === 'db') {
@@ -187,13 +208,13 @@ function reducer (state=initialState, action) {
     case 'FILTER_BY_GENRE': 
 
     if (state.filterGame.length > 0 ) {
-        
-        console.log("state.allVideogames.length: " + state.allVideogames.length)  
+                
         state.videogames = [...state.allVideogames]      
-        console.log("state.filterGame.length > 0")
+        
         if (state.filterGame[0].dbCreated) {       
             
             const filt = state.allVideogames.filter(e => e.dbCreated)
+            console.log("filt: ", filt)
             const filtered = action.payload === 'all' ? filt :  filt.filter(e => e.genres.find(e => e.name === action.payload))
             
             return {
@@ -207,6 +228,7 @@ function reducer (state=initialState, action) {
         if (!state.filterGame[0].dbCreated){
             
             const notdb = state.allVideogames.filter(e => !e.dbCreated)
+            console.log("notdb: ", notdb)
             const filtered = action.payload === 'all' ? notdb :  notdb.filter(e => e.genres.find(e => e.name === action.payload))
             
             return {
@@ -217,12 +239,25 @@ function reducer (state=initialState, action) {
             }
             
         }
+        // if (state.filterGame[0].dbCreated){
+            
+        //     const notdb = state.allVideogames.filter(e => !e.dbCreated)
+        //     console.log("notdb: ", notdb)
+        //     const filtered = action.payload === 'all' ? notdb :  notdb.filter(e => e.genres.find(e => e.name === action.payload))
+            
+        //     return {
+        //         ...state,
+        //         videogames: filtered,
+        //         filterGenre: filtered,
+        //         filterGenreName: action.payload
+        //     }
+            
+        // }
 
     }
     else {
         state.videogames = [...state.allVideogames]
-        console.log("state.filterGame.length < 0")
-        const filtered = action.payload === 'all' ? state.allVideogames :  state.allVideogames.filter(e => e.genres.find(e => e.name === action.payload))
+        const filtered = action.payload === 'all' ? state.videogames :  state.allVideogames.filter(e => e.genres.find(e => e.name === action.payload))
         return {
             ...state,                
             videogames: filtered,
