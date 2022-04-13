@@ -1,30 +1,35 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { clear, getDetails } from '../actions/actions'
 import { useEffect } from 'react'
 import { useParams } from 'react-router'
 import Loading from './Loading.jsx'
+import NotFound from './NotFound.jsx'
 
 export default function Details() {
 
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const { id } = useParams()
+
+    const myGame = useSelector(state => state.details)
+    const loading = useSelector(state => state.loading)
+    const notfound = useSelector(state => state.notfound)
 
     useEffect(() => {
         dispatch(clear())
         dispatch(getDetails(id)) // de esta forma yo accedo al id de ese detalle
-    }, [dispatch, id])
+        if (notfound) {
+            navigate("/notfound")
+        }
+    }, [dispatch, id, notfound])
 
-    const myGame = useSelector(state => state.details)
-    const loading = useSelector(state => state.loading)
     try {
         return (
             <div style={{ overflow: "hidden" }}  >
                 {loading && <Loading />}
                 {!loading &&
-                    // myGame.length > 0 ?
-
                     <div className="detail">
                         <div className='itemBtn'>
                             <Link to="/home">
@@ -50,20 +55,17 @@ export default function Details() {
                         </div>
 
                     </div>
-                    // : <p>Loading...</p>
-
                 }
 
             </div >
         )
     }
     catch (error) {
+        console.log("error: ", error)
         return (
             <div>
-                <h1>GAME NOT FOUND</h1>
+                <NotFound />
             </div>
         )
     }
-
-
 }

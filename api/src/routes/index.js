@@ -5,7 +5,6 @@ const {getAllInfo, allApiInfo} = require("../controllers/videogameCont")
 const {getGenres} = require("../controllers/genreCont");
 const {API_KEY} = process.env
 
-
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -117,5 +116,7 @@ router.get("/platforms", async (req, res) => {
     const platforms = await url.map(e => e.platforms)
     res.status(200).json(platforms)
 })
+
+
 
 module.exports = router;

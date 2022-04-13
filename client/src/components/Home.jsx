@@ -21,8 +21,6 @@ export default function Home() {
     const indexOfFirstGame = indexOfLastGame - gamesPerPage //
     const [orden, setOrden] = useState('')  // estado local para el handleFilterByName
 
-
-
     let currentGames = allGames.slice(indexOfFirstGame, indexOfLastGame)
 
     const paged = (pageNumbers) => {
@@ -30,7 +28,7 @@ export default function Home() {
     }
 
     useEffect(() => {
-        dispatch(getVideogames()) // este dispatch reemplaza el mapdispatchtoprops
+        dispatch(getVideogames())
         dispatch(getGenres())
     }, [dispatch])
 
@@ -66,7 +64,6 @@ export default function Home() {
         setOrden(`ordered ${e.target.value}`)
     }
 
-    // console.log("defaultvalues: ", defaultvalues)
     return (
         < div >
             {
@@ -120,11 +117,12 @@ export default function Home() {
                     paged={paged}
                 />
                 <br />
-                {currentGames &&
+                {currentGames.length > 0 ?
                     currentGames.map(e => {
 
                         return <Card name={e.name} genres={e.genres.map(n => n.name)} image={e.image} key={e.id} ratings={e.ratings} id={e.id} />
-                    })
+                    }) :
+                    <p style={{ fontSize: "1.6rem", color: "white" }}>Game Not Found</p>
                 }
             </div>
 
@@ -134,7 +132,6 @@ export default function Home() {
 }
 
 // const       es lo mismo que usar el mapstatetoprops, pero es mas facil.
-// PROBAR HACER CON MAPSTATETOPROPS Y MAPDISPATCHTOPROPS
 
 // Lo importante de los estados locales, mas usando redux, es entender que hay componentes que van a
 // prescindir del estado local, porque ejecutan cosas solo dentro de ese componente.

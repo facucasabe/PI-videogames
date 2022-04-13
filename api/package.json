@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon -L",
-    "test": "mocha -w ./tests/**/*.spec.js"
+    "test": "mocha -w ./tests/**/*.spec.js --timeout 10000"
   },
   "author": "Henry",
   "license": "ISC",
@@ -27,11 +27,11 @@
     "sequelize": "^6.17.0"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
+    "chai": "^4.3.6",
     "jest": "^27.5.1",
     "mocha": "^8.2.1",
     "nodemon": "^2.0.6",
-    "supertest": "^6.0.1",
+    "supertest": "^6.2.2",
     "supertest-session": "^4.1.0"
   }
 }

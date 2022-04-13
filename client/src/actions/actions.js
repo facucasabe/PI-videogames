@@ -81,13 +81,23 @@ export function getDetails (id) {
                 payload: json.data
             })
         }
-        catch (error) {console.log('error')}
+        catch (error) {
+            console.log("error de id")
+            dispatch(loader())
+            dispatch(notfound())
+        }
     }
 }
 
 export function clear () {
     return {
         type: "CLEAR"
+    }
+}
+
+export function notfound () {
+    return {
+        type: 'NOT_FOUND'
     }
 }
 

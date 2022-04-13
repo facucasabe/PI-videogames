@@ -6,7 +6,8 @@ const initialState = {
     loading: false,
     filterGenre: [],
     filterGenreName : [],
-    filterGame: [] 
+    filterGame: [],
+    notfound: false
 }
 
 function reducer (state=initialState, action) {
@@ -89,14 +90,11 @@ function reducer (state=initialState, action) {
         }          
         
     } else {
-        console.log("state.filterGenre.length < 0")
         state.videogames = [...state.allVideogames]
         if (action.payload === 'db') {
             const filter1 = state.allVideogames.filter(e => e.dbCreated)
             const filtered = state.filterGenreName.length > 0 ? filter1.filter(e => e.genres.find(p => p.name === state.filterGenreName)) : filter1
-            console.log("filter1: " + filter1[0].genres[0].name)
-            console.log("filtered: " + filtered[0].genres[0].name)
-            
+                        
             return {
                 ...state,
                 videogames: filtered,
@@ -104,9 +102,7 @@ function reducer (state=initialState, action) {
             }
         }
         else if (action.payload === 'api') {
-            const created = state.allVideogames.filter(e => !e.dbCreated)
-            const filtered = state.filterGenreName.length > 0 ? created.filter(e => e.genres.find(p => p.name === state.filterGenreName)) : created
-            
+            const created = state.allVideogames.filter(e => !e.dbCreated)            
             return {
                 ...state,
                 videogames: created,
@@ -214,7 +210,6 @@ function reducer (state=initialState, action) {
         if (state.filterGame[0].dbCreated) {       
             
             const filt = state.allVideogames.filter(e => e.dbCreated)
-            console.log("filt: ", filt)
             const filtered = action.payload === 'all' ? filt :  filt.filter(e => e.genres.find(e => e.name === action.payload))
             
             return {
@@ -228,7 +223,6 @@ function reducer (state=initialState, action) {
         if (!state.filterGame[0].dbCreated){
             
             const notdb = state.allVideogames.filter(e => !e.dbCreated)
-            console.log("notdb: ", notdb)
             const filtered = action.payload === 'all' ? notdb :  notdb.filter(e => e.genres.find(e => e.name === action.payload))
             
             return {
@@ -239,21 +233,6 @@ function reducer (state=initialState, action) {
             }
             
         }
-        // if (state.filterGame[0].dbCreated){
-            
-        //     const notdb = state.allVideogames.filter(e => !e.dbCreated)
-        //     console.log("notdb: ", notdb)
-        //     const filtered = action.payload === 'all' ? notdb :  notdb.filter(e => e.genres.find(e => e.name === action.payload))
-            
-        //     return {
-        //         ...state,
-        //         videogames: filtered,
-        //         filterGenre: filtered,
-        //         filterGenreName: action.payload
-        //     }
-            
-        // }
-
     }
     else {
         state.videogames = [...state.allVideogames]
@@ -264,8 +243,7 @@ function reducer (state=initialState, action) {
             filterGenreName: action.payload,
             filterGenre: filtered 
         }
-    }       
-
+    }  
     case 'GET_DETAILS':        
         return {
             ...state,
@@ -281,6 +259,12 @@ function reducer (state=initialState, action) {
             ...state,
             loading: !state.loading
         }
+    case 'NOT_FOUND':
+        return {
+            ...state,
+            notfound: !state.notfound
+        }
+
     default:
         return state
     }
@@ -307,18 +291,7 @@ export default reducer
 
 // Una acción sólo necesita una propiedad type:
 
-
 // Funcion SORT:
-// Si se provee compareFunction, los elementos del array son ordenados de acuerdo al valor que retorna dicha función de 
-// comparación. Siendo a y b dos elementos comparados, entonces:
-
-// Si compareFunction(a, b) es menor que 0, se sitúa a en un indice menor que b. Es decir, a viene primero.
-// Si compareFunction(a, b) retorna 0, se deja a y b sin cambios entre ellos, pero ordenados con respecto a todos los elementos diferentes. 
-// Nota: el estandar ECMAscript no garantiza este comportamiento, por esto no todos los navegadores 
-// (p.ej.  Mozilla en versiones que datan hasta el 2003) respetan esto.
-// Si compareFunction(a, b) es mayor que 0, se sitúa b en un indice menor que a.
-// compareFunction(a, b) siempre debe retornar el mismo valor dado un par especifico de elementos a y b como sus argumentos. 
-// Si se retornan resultados inconsistentes entonces el orden de ordenamiento es indefinido.
 
 // basicamente el sort te va comparando dos valores y devuelve a la derecha o a la izquierda, es decir, antes o despues
 // en el arreglo. 
