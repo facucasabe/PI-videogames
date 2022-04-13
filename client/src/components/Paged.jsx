@@ -22,7 +22,7 @@ export default function Paged({ gamesPerPage, allGames, paged, currentPage }) {
         <nav className="paged">
 
             <ul>
-                <li><button disabled={currentPage === pageNumbers[0]} onClick={e => handlePrevious(e)}>Previous</button></li>
+                <li><button disabled={currentPage === pageNumbers[0] || pageNumbers.length === 0} onClick={e => handlePrevious(e)}>Previous</button></li>
                 {pageNumbers &&
                     pageNumbers.map(number => {
                         return (
@@ -33,7 +33,8 @@ export default function Paged({ gamesPerPage, allGames, paged, currentPage }) {
                             </li>
                         )
                     })}
-                <li><button disabled={currentPage === pageNumbers[pageNumbers.length - 1]} onClick={e => handleNext(e)}>Next</button></li>
+
+                <li><button disabled={currentPage === pageNumbers[pageNumbers.length - 1] || pageNumbers.length === 0} onClick={e => handleNext(e)}>Next</button></li>
             </ul>
             <br />
             <br />

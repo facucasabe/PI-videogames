@@ -85,24 +85,8 @@ router.get("/videogame/:idVideogame", async (req, res) => {
 // En una primera instancia deberán traerlos desde rawg y guardarlos en su propia base de datos y luego ya utilizarlos desde allí
 
 router.get("/genres", async (req, res) => {
-    // const allGenres = await getGenres()
-    // console.log(allGenres)
-    const apiUrl = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`)
-    const genres = await apiUrl.data.results.map(d => d.name)
-    genres.forEach(e => {
-        Genre.findOrCreate({
-            where: {name: e}
-        })
-    });
-    // console.log(genres)
-    const allGenres = await Genre.findAll();
-    const genresFiltered = await allGenres.map(p=> {
-        return {
-            
-            name: p.name
-        }
-    })
-    res.status(200).json(genresFiltered)
+    const genres = await getGenres()
+    res.status(200).json(genres)
 })
 
 // [ ] POST /videogame:

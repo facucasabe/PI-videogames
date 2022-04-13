@@ -9,3 +9,25 @@
     text-shadow: 0 0 5px #d73939, 0 0 7px #0000FF;
     font-size: 150%;
 }
+
+.buttoncreate {
+    position: inherit;
+    border-radius: 8px;
+    font-weight: 600;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.buttoncreate:hover {
+    background-color: hotpink;
+}
+
+.buttonreload {
+    position: inherit;
+    border-radius: 8px;
+    font-weight: 600;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.buttonreload:hover {
+    background-color: hotpink;
+}

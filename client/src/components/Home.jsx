@@ -22,7 +22,8 @@ export default function Home() {
     const [orden, setOrden] = useState('')  // estado local para el handleFilterByName
 
 
-    const currentGames = allGames.slice(indexOfFirstGame, indexOfLastGame)
+
+    let currentGames = allGames.slice(indexOfFirstGame, indexOfLastGame)
 
     const paged = (pageNumbers) => {
         setCurrentPage(pageNumbers)
@@ -40,6 +41,7 @@ export default function Home() {
     }
 
     function HandlefilterCreated(e) {
+        e.preventDefault()
         dispatch(filterCreated(e.target.value))
     }
 
@@ -64,8 +66,9 @@ export default function Home() {
         setOrden(`ordered ${e.target.value}`)
     }
 
+    // console.log("defaultvalues: ", defaultvalues)
     return (
-        <div>
+        < div >
             {
                 loading && <Loading />
             }
@@ -75,31 +78,37 @@ export default function Home() {
             <Link to='/videogame'>
                 <button className="buttoncreate">Create New Game</button>
             </Link>
-            <h1 className="welcome">WELCOME</h1>
+            <h1 className="welcome">HENRY GAMES</h1>
             <SearchBar />
-            <button onClick={(e => { handleClick(e) })}>
+            <br />
+            <button className="buttonreload" onClick={(e => { handleClick(e) })}>
                 Reload All Games
             </button>
+            <br />
+            <br />
             <div>
-                <select onChange={u => handleFilterByName(u)}>
-                    <option value="az">A to Z</option>
-                    <option value="za">Z to A</option>
+                <select defaultValue="default" onChange={u => handleFilterByName(u)}>
+                    <option key="" value="default" hidden>Sort by Name</option>
+                    <option key="az" value="az">A to Z</option>
+                    <option key="za" value="za">Z to A</option>
                 </select>
-                <select onChange={e => handleFilterByRating(e)}>
-                    <option value="asc">Highest to Lowest Rating</option>
-                    <option value="desc">Lowest to Highest Rating</option>
+                <select defaultValue="default" onChange={e => handleFilterByRating(e)}>
+                    <option key="" value="default" hidden>Sort by Rating</option>
+                    <option key="asc" value="asc">Highest to Lowest Rating</option>
+                    <option key="desc" value="desc">Lowest to Highest Rating</option>
                 </select>
-                <select onChange={e => HandlefilterCreated(e)}>
-                    <option value="all">All Games</option>
-                    <option value="api">Api Games</option>
-                    <option value="db">Created Games</option>
+                <select defaultValue="all" onChange={e => HandlefilterCreated(e)}>
+                    <option key='all' value="all">All Games</option>
+                    <option key='api' value="api">Api Games</option>
+                    <option key='db' value="db">Created Games</option>
                 </select>
                 <br />
                 <label className="genretit">Filter by Genre</label>
                 <br />
-                <select onChange={e => handleFilterByGenre(e)}>
+                <select defaultValue="all" onChange={e => handleFilterByGenre(e)}>
+                    <option key="" value="all">All Genres</option>
                     {genres.map(g => (
-                        <option value={g.name} key={g.id}>{g.name}</option>
+                        <option value={g.name} key={g.name}>{g.name}</option>
                     ))}
                 </select>
                 <br />
@@ -119,7 +128,7 @@ export default function Home() {
                 }
             </div>
 
-        </div>
+        </div >
     )
 
 }

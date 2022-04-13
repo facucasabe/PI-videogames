@@ -3,7 +3,10 @@ const initialState = {
     allVideogames: [],
     genres: [],
     details: [],
-    loading: false
+    loading: false,
+    filterGenre: [],
+    filterGenreName : [],
+    filterGame: [] 
 }
 
 function reducer (state=initialState, action) {
@@ -21,52 +24,105 @@ function reducer (state=initialState, action) {
         return {
             ...state,
             videogames: statusFiltered
-        }
+       }    
     case 'FILTER_CREATED':
-        // const created = action.payload === 'db' ? state.allVideogames.filter(e => e.dbCreated) : state.allVideogames.filter(e => !e.dbCreated)
-        if (action.payload === 'db') {
-            const created = state.allVideogames.filter(e => e.dbCreated)
+
+    if (state.filterGenre.length > 0 ) {
+        console.log("state.videogames.length: " + state.allVideogames.length)  
+        state.videogames = [...state.allVideogames]
+        if (action.payload === 'db') {            
+
+            const filter1 = state.allVideogames.filter(e => e.dbCreated)
+            // const filtered = action.payload === 'all' ? filter1 :  filter1.filter(e => e.genres.find(e => e.name === action.payload))
+
+            const filtered1  = filter1.filter(e => e.genres.find(p => p.name === state.filterGenreName))
+            
+            
+
             return {
                 ...state,
-                videogames: created
+                videogames: filtered1,
+                filterGame: filtered1
+            }
+        }
+        else if (action.payload === 'api') {
+            console.log("api filter: " , state.videogames)
+            console.log("generobusca: ", state.filterGenreName)
+            const created = state.videogames.filter(e => !e.dbCreated)
+            const filtered = created.filter(e => e.genres.find(p => p.name === state.filterGenreName))
+
+            return {
+                ...state,
+                videogames: filtered,
+                filterGame: filtered
+            }
+        }
+        else if (action.payload === 'all'){
+            const created = state.videogames.filter(e => e.genres.find(u => u.name === state.filterGenreName))
+            return {
+                ...state,
+                videogames: created,
+                // filterGame: created,
+                filterGame: [...state.allVideogames]
+            }
+            
+        
+    }} else {
+        console.log("state.filterGenre.length < 0")
+        state.videogames = [...state.allVideogames]
+        if (action.payload === 'db') {
+            const filter1 = state.allVideogames.filter(e => e.dbCreated)
+            const filtered = state.filterGenreName.length > 0 ? filter1.filter(e => e.genres.find(p => p.name === state.filterGenreName)) : filter1
+            console.log("filter1: " + filter1[0].genres[0].name)
+            console.log("filtered: " + filtered[0].genres[0].name)
+            
+            return {
+                ...state,
+                videogames: filtered,
+                filterGame: filtered
             }
         }
         else if (action.payload === 'api') {
             const created = state.allVideogames.filter(e => !e.dbCreated)
+            const filtered = state.filterGenreName.length > 0 ? created.filter(e => e.genres.find(p => p.name === state.filterGenreName)) : created
+            
             return {
                 ...state,
-                videogames: created
+                videogames: created,
+                filterGame: created
             }
         }
         else {
             const created = state.allVideogames
             return {
                 ...state,
-                videogames: created
+                videogames: created,
+                filterGame: created
             }
         }
+    }
     case 'FILTER_BY_RATING':
-        
-        let rating = action.payload === 'desc' ? state.videogames.sort(function (a,b) {
-            if (a.ratings === 'exceptional') {
-                return 1
-            }
-            if (b.ratings === 'exceptional') {
-                return -1
-            }
-            if (a.ratings === 'recommended' && b.ratings === 'meh') {
-                return 1
-            }
-            if (b.ratings === 'recommended' && a.ratings === 'meh') {
-                return -1
-            }
-            if (a.ratings === 'skip') {
-                return 1
-            }
-            if (b.ratings === 'skip') {
-                return -1
-            }
-            return 0
+            
+            let rating = action.payload === 'desc' ? state.videogames.sort(function (a,b) {
+                if (a.ratings === 'exceptional') {
+                    return 1
+                }
+                if (b.ratings === 'exceptional') {
+                    return -1
+                }
+                if (a.ratings === 'recommended' && b.ratings === 'meh') {
+                    return 1
+                }
+                if (b.ratings === 'recommended' && a.ratings === 'meh') {
+                    return -1
+                }
+                if (a.ratings === 'skip') {
+                    return 1
+                }
+                if (b.ratings === 'skip') {
+                    return -1
+                }
+                return 0
             }) : state.videogames.sort(function (a,b) {
                 if (a.ratings === 'exceptional') {
                     return -1
@@ -78,7 +134,7 @@ function reducer (state=initialState, action) {
                     return 1
                 }
                 if (b.ratings === 'recommended' && a.ratings === 'meh') {
-                    return -1
+                    return -1                    
                 }
                 if (a.ratings === 'skip') {
                     return -1
@@ -107,7 +163,7 @@ function reducer (state=initialState, action) {
             }
             if (b.name > a.name){
                 return 1
-            }
+            } 
             return 0
         })
         return {
@@ -127,13 +183,54 @@ function reducer (state=initialState, action) {
         return {
             ...state,
             videogames: action.payload
+        }  
+    case 'FILTER_BY_GENRE': 
+
+    if (state.filterGame.length > 0 ) {
+        
+        console.log("state.allVideogames.length: " + state.allVideogames.length)  
+        state.videogames = [...state.allVideogames]      
+        console.log("state.filterGame.length > 0")
+        if (state.filterGame[0].dbCreated) {       
+            
+            const filt = state.allVideogames.filter(e => e.dbCreated)
+            const filtered = action.payload === 'all' ? filt :  filt.filter(e => e.genres.find(e => e.name === action.payload))
+            
+            return {
+                ...state,
+                videogames: filtered,
+                filterGenreName: action.payload,
+                filterGenre: filtered
+            }
+        } 
+
+        if (!state.filterGame[0].dbCreated){
+            
+            const notdb = state.allVideogames.filter(e => !e.dbCreated)
+            const filtered = action.payload === 'all' ? notdb :  notdb.filter(e => e.genres.find(e => e.name === action.payload))
+            
+            return {
+                ...state,
+                videogames: filtered,
+                filterGenre: filtered,
+                filterGenreName: action.payload
+            }
+            
         }
-    case 'FILTER_BY_GENRE':
-        const filtered = action.payload ? state.allVideogames.filter(e => e.genres.find(e => e.name === action.payload)) : state.allVideogames
+
+    }
+    else {
+        state.videogames = [...state.allVideogames]
+        console.log("state.filterGame.length < 0")
+        const filtered = action.payload === 'all' ? state.allVideogames :  state.allVideogames.filter(e => e.genres.find(e => e.name === action.payload))
         return {
-            ...state,
-            videogames: filtered
+            ...state,                
+            videogames: filtered,
+            filterGenreName: action.payload,
+            filterGenre: filtered 
         }
+    }       
+
     case 'GET_DETAILS':        
         return {
             ...state,
