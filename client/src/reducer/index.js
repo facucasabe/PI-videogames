@@ -134,10 +134,10 @@ function reducer (state=initialState, action) {
                     return -1
                 }
                 if (a.ratings === 'skip') {
-                    return 1
+                    return -1
                 }
                 if (b.ratings === 'skip') {
-                    return -1
+                    return 1
                 }
                 return 0
             }) : state.videogames.sort(function (a,b) {

@@ -28,6 +28,9 @@ export function GameCreate() {
         } else if (!input.description) {
             errors.description = 'Game must have a description'
         }
+        else if (input.platforms.length < 1) {
+            errors.platforms = "Game must have a platform"
+        }
         return errors
     }
 
@@ -52,6 +55,12 @@ export function GameCreate() {
                 platforms: [...input.platforms, e.target.value]
             })
         }
+        else {
+            setErrors(validate({
+                ...input,
+                [e.target.platforms]: e.target.value
+            }))
+        }
     }
 
     function handleSelect(e) {
@@ -74,7 +83,7 @@ export function GameCreate() {
         e.preventDefault()
 
 
-        if (input.name.length >= 1 && input.description.length >= 1) {
+        if (input.name.length >= 1 && input.description.length >= 1 && input.platforms.length > 1) {
             dispatch(postVideogames(input))
 
             alert("Game Created Succesfully")

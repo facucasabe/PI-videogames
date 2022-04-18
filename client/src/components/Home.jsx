@@ -131,7 +131,7 @@ export default function Home() {
 
 }
 
-// const       es lo mismo que usar el mapstatetoprops, pero es mas facil.
+
 
 // Lo importante de los estados locales, mas usando redux, es entender que hay componentes que van a
 // prescindir del estado local, porque ejecutan cosas solo dentro de ese componente.
